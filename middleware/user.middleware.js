@@ -27,6 +27,8 @@ export const protectRouter = async (req, res, next) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+
 export const refreshToken = async (req, res) => {
   const token = req.cookies.refreshToken;
   if (!token) return res.status(401).json({ message: "No refresh token" });
@@ -48,6 +50,20 @@ export const refreshToken = async (req, res) => {
     return res.status(403).json({ message: "Invalid refresh token" });
   }
 };
+
+
+export const isUserAllowed = (allowedRoles) => async (req, res, next) => {
+  try {
+    const user = req.user
+    if (allowedRoles.includes(user.role)) {
+      return next();
+    } else {
+     return res.status(403).json({ message: err.message });
+    }
+  } catch (error) {
+    res.status(500).json({ message: err.message });
+  }
+}
 
 
 

@@ -11,7 +11,7 @@ import {
 const router = express.Router();
 
 router.get("/", getProduits);
-router.post("/create", protectRouter, produitValidation, createProduit);
+router.post("/create", protectRouter, produitValidation, isUserAllowed(['admin', 'user']) , createProduit);
 router.put("/:id", protectRouter, produitValidation, updateProduit);
 router.delete("/:id/delete", protectRouter, deleteProduit);
 

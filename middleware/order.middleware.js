@@ -14,16 +14,3 @@ export const findProduit = async (req, res, next) => {
     res.status(500).json({ message: err.message });
   }
 };
-
-export const isUserAllowed = (allowedRoles) =>  async (req, res, next) => {
-  
-  try {
-    const user = await User.findById(id);
-    if (allowedRoles.includes(user.role)) {
-    return next();
-    }
-    next();
-  } catch (error) {
-    res.status(500).json({ message: err.message });
-  }
-}
